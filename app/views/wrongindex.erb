@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.key-form').submit(function(event){
+          event.preventDefault();
+          $.ajax({
+              url: '/set',
+              method: 'GET',
+              result: $(this).serialize(),
+              dataType: "html",
+          }).success(function (result) {
+              console.log(result);
+              $('#key-container').append("<p>" + result + "</p>");
+          }).fail(function () {
+              console.log("error");
+          });
+          // $.get("key",function(result){
+          //   $('#key-container').append("<p>" + result + "</p>");
+          // });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <section class = 'text-center'>
+      <div class = 'transparent-box'>
+        <form action = "/set" method="get" id="key-form">
+          <input name="key" id="set"/>
+          <button class="btn-submit">Submit</button>
+        </form>
+        <div id="key-container"></div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
