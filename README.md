@@ -7,4 +7,5 @@
 
 #### Use the Soul Database Server app
 In the homepage you will see all the values you stored in the session.
-To set a new pair of values visit the 
+To set a new pair of values visit the homepage and insert the key and the value in the form fields
+The homepage should now show the created pairs
