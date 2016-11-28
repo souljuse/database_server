@@ -13,7 +13,8 @@ class App < Sinatra::Base
   end
 
   get "/get" do
-    SAVED_KEYS[params[:key]]
+    @key = params[:key]
+    @value = SAVED_KEYS[params[:key]]
     erb :show
   end
 

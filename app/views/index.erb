@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Database Server</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-        console.log(window.location.hash);
+        $('#key-form').submit(function(event){
+          event.preventDefault();
+          var key = $("#key").val();
+          var value = $("#value").val();
+          var pair = key + ' = ' + value
+          $.ajax({
+              url: '/set',
+              method: 'GET',
+              result: pair,
+              dataType: "html",
+          }).success(function (result) {
+               $('#key-container').append("<p>" + pair + "</p>");
+          }).fail(function () {
+              console.log("error");
+          });
+        });
       });
     </script>
   </head>
@@ -13,6 +29,19 @@
       <p>
         Hello!
       </p>
+      <form action = "/set" method="get" id="key-form">
+        <input name="key" id="key"/>
+        <input name="value" id="value"/>
+        <button class="btn-submit">Submit</button>
+      </form>
+      <p>Saved pairs:</p>
+      <div id="key-container"></div>
+        <% SAVED_KEYS.each do |pair| %>
+          <p>
+            <%= pair.join(' = ') %>
+          </p>
+        <% end %>
+      </div>
     </section>
   </body>
 </html>
